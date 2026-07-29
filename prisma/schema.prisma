@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  RESIDENT
+  STAFF
+  ADMIN
+}
+
+enum IssueStatus {
+  REPORTED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum IssueType {
+  POTHOLE
+  GRAFFITI
+  ILLEGAL_DUMPING
+  DAMAGED_PLAYGROUND_EQUIPMENT
+  BROKEN_STREETLIGHT
+  OVERGROWN_VEGETATION
+  WATER_LEAK
+  FOOTPATH_DAMAGE
+  OTHER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(RESIDENT)
+  createdAt DateTime @default(now())
+
+  issuesReported Issue[]        @relation("ReportedBy")
+  issuesAssigned Issue[]        @relation("AssignedTo")
+  historyEntries IssueHistory[]
+
+  @@map("users")
+}
+
+model Issue {
+  id          String      @id @default(cuid())
+  title       String
+  description String
+  type        IssueType
+  status      IssueStatus @default(REPORTED)
+  latitude    Float
+  longitude   Float
+  address     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  reportedById String
+  reportedBy   User    @relation("ReportedBy", fields: [reportedById], references: [id])
+
+  assignedToId String?
+  assignedTo   User?   @relation("AssignedTo", fields: [assignedToId], references: [id])
+
+  history     IssueHistory[]
+  attachments Attachment[]
+
+  @@map("issues")
+}
+
+model IssueHistory {
+  id        String      @id @default(cuid())
+  issueId   String
+  issue     Issue       @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  status    IssueStatus
+  note      String?
+  changedById String
+  changedBy   User      @relation(fields: [changedById], references: [id])
+  createdAt DateTime    @default(now())
+
+  @@map("issues_history")
+}
+
+model Attachment {
+  id        String   @id @default(cuid())
+  issueId   String
+  issue     Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  url       String
+  fileName  String
+  createdAt DateTime @default(now())
+
+  @@map("attachments")
+}
