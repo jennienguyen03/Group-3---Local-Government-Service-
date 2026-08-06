@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   return <form onSubmit={handleSubmit}>
           <div>
@@ -22,17 +24,12 @@ export function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type="submit">
-            Login
-          </button>
-          <div>
-            <label>Don't have an account?</label>
-          </div>
+          {error && <p className="error">{error}</p>}
+          <button type="submit">Login</button>
 
-           <button type="submit">
-            <a href="/register">Register</a>
-          </button>
-          
+          <p>
+            Don't have an account? <Link href="/register">Register</Link>
+          </p>
         </form>;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

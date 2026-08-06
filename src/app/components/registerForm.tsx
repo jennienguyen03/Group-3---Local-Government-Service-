@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
-
+import Link from "next/link";
 export function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  
 
   return <form onSubmit={handleSubmit}>
           <div>
@@ -31,21 +33,21 @@ export function RegisterForm() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+          {error && <p className="error">{error}</p>}
           <button type="submit">
             Register
           </button>
-          <div>
-            <label>Already have an account?</label>
-          </div>
-
-           <button type="submit">
-            <a href="/">Login</a>
-          </button>
+            <p>Already have an account? <Link href="/">Login</Link></p>
 
         </form>;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault();
+  if (password !== confirmPassword) {
+    setError("Passwords do not match!");
+    return; //prevents the page from going further if the password do not match
+  }
+  setError("") //clear any old error if validation goes through
   //extra logic here for when someone submits the form 
   } //prevents the page from refreshing when the form is submitted later logic will be added for passing to the backend to authorise
 }
