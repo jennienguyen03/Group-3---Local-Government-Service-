@@ -1,53 +1,66 @@
 "use client";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { registerUser } from "~/app/actions/user";
+
 export function RegisterForm() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  return <form onSubmit={handleSubmit}>
-          <div>
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-           <div>
-            <label>Confirm Password</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-          {error && <p className="error">{error}</p>}
-          <button type="submit">
-            Register
-          </button>
-            <p>Already have an account? <Link href="/">Login</Link></p>
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-        </form>;
+    if (!name.trim() || !email.trim() || !password || !confirmPassword) {
+      setError("Please fill in all fields.");
+      return;
+    }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();
-  if (password !== confirmPassword) {
-    setError("Passwords do not match!");
-    return; //prevents the page from going further if the password do not match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match!");
+      return;
+    }
+
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      await registerUser(name.trim(), email.trim(), password);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Registration failed.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
-  setError("") //clear any old error if validation goes through
-  //extra logic here for when someone submits the form 
-  } //prevents the page from refreshing when the form is submitted later logic will be added for passing to the backend to authorise
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Name</label>
+        <input value={name} onChange={(e) => setName(e.target.value)} />
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </div>
+      <div>
+        <label>Confirm Password</label>
+        <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+      </div>
+      {error && <p className="error">{error}</p>}
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Registering..." : "Register"}
+      </button>
+      <p>
+        Already have an account? <Link href="/">Login</Link>
+      </p>
+    </form>
+  );
 }
