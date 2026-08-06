@@ -2,19 +2,21 @@ type StatusChartProps = {
   open: number;
   inProgress: number;
   resolved: number;
+  closed?: number;
 };
 
 const RADIUS = 60;
 const STROKE = 22;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-export default function StatusChart({ open, inProgress, resolved }: StatusChartProps) {
-  const total = open + inProgress + resolved;
+export default function StatusChart({ open, inProgress, resolved, closed = 0 }: StatusChartProps) {
+  const total = open + inProgress + resolved + closed;
 
   const segments = [
     { label: "Open", value: open, color: "var(--status-open)" },
     { label: "In progress", value: inProgress, color: "var(--status-progress)" },
     { label: "Resolved", value: resolved, color: "var(--status-resolved)" },
+    { label: "Closed", value: closed, color: "var(--text-muted)" },
   ];
 
   let offset = 0;
