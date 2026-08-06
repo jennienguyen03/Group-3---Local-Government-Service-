@@ -4,16 +4,19 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   return (
-    <main className="min-h-screen bg-zinc-50 px-6 py-16 dark:bg-black">
-      <div className="mx-auto max-w-2xl">
-        <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
-          Register
-        </h1>
+    <div className="flex min-h-screen items-center justify-center bg-background p-6">
+      
+        <div className="w-full max-w-sm">
+          <h1 className="text-xl font-medium text-text-primary">Register</h1>
+          <p className="mt-1 text-sm text-text-secondary">
+            Create your account to get started.
+          </p>
+          <div className="mt-8">
         <RegisterForm />
-        <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-zinc-600 dark:text-zinc-400"> </p>
           Local Government Service Request Portal
-        </p>
+        </div>
+        </div>
       </div>
-    </main>
   );
 }
