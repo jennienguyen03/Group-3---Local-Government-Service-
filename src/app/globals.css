@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4f5f7;
+  --foreground: #12161c;
+
+  --surface: #ffffff;
+  --border: #e1e4e9;
+
+  --text-primary: #12161c;
+  --text-secondary: #5c6472;
+  --text-muted: #8a909c;
+
+  --brand-navy: #142c46;
+  --brand-accent: #1c6e8c;
+
+  --status-open: #b4632a;
+  --status-open-bg: #fbeee2;
+  --status-progress: #1c6e8c;
+  --status-progress-bg: #e4f0f4;
+  --status-resolved: #2c7a52;
+  --status-resolved-bg: #e5f3ea;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-accent: var(--brand-accent);
+  --color-status-open: var(--status-open);
+  --color-status-open-bg: var(--status-open-bg);
+  --color-status-progress: var(--status-progress);
+  --color-status-progress-bg: var(--status-progress-bg);
+  --color-status-resolved: var(--status-resolved);
+  --color-status-resolved-bg: var(--status-resolved-bg);
+  --font-sans: var(--font-public-sans);
+  --font-mono: var(--font-plex-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
