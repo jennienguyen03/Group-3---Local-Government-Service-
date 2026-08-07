@@ -79,7 +79,7 @@ export default async function Home() {
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
-                href="/dashboard/report"
+                href="/report"
                 className="rounded-md bg-brand-navy px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#1c3a5c]"
               >
                 Report an issue
