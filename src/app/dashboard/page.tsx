@@ -29,7 +29,7 @@ export default async function ResidentDashboard() {
         <section className="flex flex-[2] flex-col gap-6">
           {/* Report an issue */}
           <Link
-            href="/dashboard/report"
+            href="/report"
             className="flex items-center justify-center rounded-xl bg-brand-accent px-5 py-4 text-sm font-medium text-white transition-colors hover:bg-brand-accent/90"
           >
             + Report an issue

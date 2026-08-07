@@ -35,7 +35,7 @@ export default async function AdminDashboard() {
                 Issues overview
               </h1>
               <Link
-                href="/admin/issues/new"
+                href="/report"
                 className="rounded-md bg-brand-accent px-3.5 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-accent/90"
               >
                 + Add Issue
