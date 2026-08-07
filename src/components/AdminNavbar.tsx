@@ -8,7 +8,7 @@ export default function AdminNavbar() {
           SC
         </span>
         <span className="text-[15px] font-medium tracking-tight text-white">
-          Smart Civic
+          Admin Dashboard
         </span>
       </Link>
 
@@ -17,7 +17,7 @@ export default function AdminNavbar() {
           type="submit"
           className="rounded border border-white/20 px-4 py-1.5 text-sm text-white/90 transition-colors hover:bg-white/10"
         >
-          Log out
+          Sign out
         </button>
       </form>
     </header>
