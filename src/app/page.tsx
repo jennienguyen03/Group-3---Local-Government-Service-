@@ -216,7 +216,7 @@ export default async function Home() {
                 key={type}
                 className="flex flex-col items-start gap-3 rounded-lg border border-border bg-surface p-4"
               >
-                <Icon className="h-6 w-6 text-brand-accent" />
+                <Icon className="text-brand-accent" style={{ width: "20px", height: "20px" }} />
                 <span className="text-sm font-medium text-text-primary">
                   {label}
                 </span>
