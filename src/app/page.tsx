@@ -63,7 +63,7 @@ export default async function Home() {
         {/* Hero */}
         <section className="mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 md:grid-cols-[1.1fr_0.9fr] md:pt-24">
           <div>
-            <span className="font-mono text-xs font-medium uppercase tracking-wider text-brand-accent">
+            <span className="font-mono text-xs font-large uppercase tracking-wider text-brand-accent">
               Local government service requests
             </span>
             <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight text-text-primary md:text-5xl">
