@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { db } from "~/server/db";
 import { LandingNavbar } from "~/components/LandingNavbar";
 import {
   IconPothole,
@@ -11,8 +10,6 @@ import {
   IconWaterLeak,
   IconFootpath,
 } from "~/components/IssueTypeIcon";
-
-export const dynamic = "force-dynamic";
 
 const ISSUE_TYPES = [
   { type: "POTHOLE", label: "Pothole", Icon: IconPothole },
@@ -46,15 +43,33 @@ const STEPS = [
   },
 ];
 
-export default async function Home() {
-  const issues = await db.issue.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 20,
-  });
+// Example tickets shown for illustration only — not real data.
+const EXAMPLE_TICKETS = [
+  {
+    id: "A1F92C",
+    title: "Pothole on Church Street",
+    meta: "pothole · near Church St & 5th Ave",
+    status: "IN_PROGRESS" as const,
+  },
+  {
+    id: "7E3D01",
+    title: "Broken streetlight",
+    meta: "broken streetlight · Riverside Park",
+    status: "RESOLVED" as const,
+  },
+];
 
-  const resolvedCount = issues.filter((i) => i.status === "RESOLVED").length;
-  const latest = issues[0];
+function statusStyle(status: "REPORTED" | "IN_PROGRESS" | "RESOLVED") {
+  if (status === "RESOLVED") {
+    return { color: "var(--status-resolved)", background: "var(--status-resolved-bg)" };
+  }
+  if (status === "IN_PROGRESS") {
+    return { color: "var(--status-progress)", background: "var(--status-progress-bg)" };
+  }
+  return { color: "var(--status-open)", background: "var(--status-open-bg)" };
+}
 
+export default function Home() {
   return (
     <>
       <LandingNavbar />
@@ -77,98 +92,65 @@ export default async function Home() {
               the moment you submit.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href="/report"
-                className="rounded-md bg-brand-navy px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#1c3a5c]"
-              >
-                Report an issue
-              </Link>
-              <Link
-                href="/dashboard"
-                className="rounded-md border border-border bg-surface px-5 py-3 text-sm font-medium text-text-primary transition-colors hover:border-brand-navy"
-              >
-                Track my reports
-              </Link>
-            </div>
-
-            <div className="mt-12 flex gap-8 border-t border-border pt-6">
-              <div>
-                <div className="font-mono text-2xl font-semibold text-text-primary">
-                  {issues.length}
-                </div>
-                <div className="text-xs text-text-muted">Reports logged</div>
-              </div>
-              <div>
-                <div className="font-mono text-2xl font-semibold text-status-resolved">
-                  {resolvedCount}
-                </div>
-                <div className="text-xs text-text-muted">Resolved</div>
-              </div>
-              <div>
-                <div className="font-mono text-2xl font-semibold text-text-primary">
-                  8
-                </div>
-                <div className="text-xs text-text-muted">Issue types tracked</div>
+            {/* Sign-in prompt */}
+            <div className="mt-8 max-w-md rounded-lg border border-border bg-surface p-5">
+              <p className="text-sm font-medium text-text-primary">
+                Create your account or sign in today.
+              </p>
+              <p className="mt-1 text-xs text-text-secondary">
+                Save your reports and get updates as council works on them.
+              </p>
+              <div className="mt-4 flex gap-2">
+                <Link
+                  href="/login"
+                  className="flex-1 rounded-md border border-border bg-background px-4 py-2 text-center text-sm font-medium text-text-primary transition-colors hover:border-brand-navy"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/register"
+                  className="flex-1 rounded-md bg-brand-navy px-4 py-2 text-center text-sm font-medium text-white transition-colors hover:bg-[#1c3a5c]"
+                >
+                  Register
+                </Link>
               </div>
             </div>
           </div>
 
-          {/* Signature element: a service-ticket stub pulled from real data */}
+          {/* Right column: example tickets */}
           <div className="flex items-start justify-center md:justify-end">
-            <div className="relative w-full max-w-sm rounded-lg border border-border bg-surface p-5 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-text-muted">
-                  Service ticket
-                </span>
-                <span className="font-mono text-[11px] text-text-muted">
-                  {latest ? `#${latest.id.slice(-6).toUpperCase()}` : "#000000"}
-                </span>
-              </div>
+            <div className="w-full max-w-sm space-y-3">
+              <span className="block font-mono text-[11px] uppercase tracking-wider text-text-muted">
+                Example tickets
+              </span>
+              {EXAMPLE_TICKETS.map((ticket) => (
+                <div
+                  key={ticket.id}
+                  className="rounded-lg border border-border bg-surface p-5 shadow-sm"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-text-muted">
+                      Service ticket
+                    </span>
+                    <span className="font-mono text-[11px] text-text-muted">
+                      #{ticket.id}
+                    </span>
+                  </div>
 
-              <div className="my-4 border-t border-dashed border-border" />
+                  <div className="my-3 border-t border-dashed border-border" />
 
-              {latest ? (
-                <>
                   <p className="text-sm font-medium text-text-primary">
-                    {latest.title}
+                    {ticket.title}
                   </p>
-                  <p className="mt-1 text-xs text-text-muted">
-                    {latest.type.replaceAll("_", " ").toLowerCase()} ·{" "}
-                    {latest.address ??
-                      `${latest.latitude.toFixed(3)}, ${latest.longitude.toFixed(3)}`}
-                  </p>
+                  <p className="mt-1 text-xs text-text-muted">{ticket.meta}</p>
                   <span
-                    className="mt-4 inline-block rounded-full px-3 py-1 text-xs font-medium"
-                    style={{
-                      color:
-                        latest.status === "RESOLVED"
-                          ? "var(--status-resolved)"
-                          : latest.status === "IN_PROGRESS"
-                          ? "var(--status-progress)"
-                          : "var(--status-open)",
-                      background:
-                        latest.status === "RESOLVED"
-                          ? "var(--status-resolved-bg)"
-                          : latest.status === "IN_PROGRESS"
-                          ? "var(--status-progress-bg)"
-                          : "var(--status-open-bg)",
-                    }}
+                    className="mt-3 inline-block rounded-full px-3 py-1 text-xs font-medium"
+                    style={statusStyle(ticket.status)}
                   >
-                    {latest.status.replaceAll("_", " ")}
+                    {ticket.status.replaceAll("_", " ")}
                   </span>
-                </>
-              ) : (
-                <p className="text-sm text-text-muted">
-                  No reports yet — be the first.
-                </p>
-              )}
-
-              <div className="mt-6 border-t border-border pt-4 text-[11px] text-text-muted">
-                Every report is timestamped and tracked from{" "}
-                <span className="font-medium text-status-open">reported</span>{" "}
-                to <span className="font-medium text-status-resolved">resolved</span>.
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -216,7 +198,7 @@ export default async function Home() {
                 key={type}
                 className="flex flex-col items-start gap-3 rounded-lg border border-border bg-surface p-4"
               >
-                <Icon className="text-brand-accent" style={{ width: "20px", height: "20px" }} />
+                <Icon className="h-5 w-5 shrink-0 text-brand-accent" />
                 <span className="text-sm font-medium text-text-primary">
                   {label}
                 </span>
@@ -237,7 +219,7 @@ export default async function Home() {
               </p>
             </div>
             <Link
-              href="/dashboard/report"
+              href="/report"
               className="rounded-md bg-white px-5 py-3 text-sm font-medium text-brand-navy transition-colors hover:bg-white/90"
             >
               Report an issue
