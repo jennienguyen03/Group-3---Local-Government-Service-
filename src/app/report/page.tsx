@@ -56,7 +56,7 @@ function AddIssues() {
     date: ""
   });
 
-function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   event.preventDefault();
 
   const res = await fetch("/api/datbase", {
@@ -73,6 +73,7 @@ function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       title: "",
       category: "",
       description: "",
+      address: "",
       date: "",
     });
   } else {

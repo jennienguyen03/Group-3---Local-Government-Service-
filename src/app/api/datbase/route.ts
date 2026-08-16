@@ -1,17 +1,20 @@
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 
-export  function POST(req: Request) {
+export async function POST(req: Request) {
   try {
     const body = await req.json();
 
     const issue = await db.issue.create({
       data: {
-        title: body.title,
-        category: body.category,
-        description: body.description,
-        address: body.address,
-        date: new Date(body.date),
+  title: body.title,
+    type: body.type,
+    description: body.description,
+    address: body.address,
+    latitude: body.latitude,
+    longitude: body.longitude,
+    reportedBy: body.reportedBy,
+    date: new Date(body.date),
       },
     });
 
