@@ -1,8 +1,50 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
+import UserNavbar from "~/components/UserNavbar";
 
 export default function Report() {
-  return <AddIssues />;
+  const router = useRouter();
+
+  return (
+    <div className="min-h-screen bg-neutral-100 dark:bg-neutral-950">
+      <UserNavbar />
+
+      <main className="p-6">
+        {/* Back Button */}
+        <button
+          onClick={() => router.back()}
+          className="
+            mb-4 rounded-md border border-neutral-300 dark:border-neutral-700
+            px-4 py-2 text-sm bg-white dark:bg-neutral-900
+            hover:bg-neutral-100 dark:hover:bg-neutral-800 transition
+          "
+        >
+          ← Back
+        </button>
+
+        <div className="flex justify-center">
+          <AddIssues />
+        </div>
+      </main>
+
+      {/* Go Up Button */}
+      <button
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          })
+        }
+        className="
+          fixed bottom-6 right-6 rounded-full bg-neutral-800 text-white
+          w-10 h-10 hover:bg-neutral-700 transition shadow-md
+        "
+      >
+        ↑
+      </button>
+    </div>
+  );
 }
 
 function AddIssues() {
@@ -10,21 +52,47 @@ function AddIssues() {
     title: "",
     category: "",
     description: "",
+    address: "",
     date: ""
   });
 
-  function handlesubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    alert("Form submitted");
+function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+
+  const res = await fetch("/api/datbase", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(form),
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    alert("Issue submitted successfully");
+    setForm({
+      title: "",
+      category: "",
+      description: "",
+      date: "",
+    });
+  } else {
+    alert("Failed to submit issue");
   }
+}
+
 
   return (
     <form
-      onSubmit={handlesubmit}
-      className="max-w-md mx-auto mt-10 p-6 bg-white dark:bg-neutral-900 
-                 border border-neutral-300 dark:border-neutral-700 
-                 rounded-lg flex flex-col gap-4"
+      onSubmit={handleSubmit}
+      className="
+        flex flex-col gap-4 max-w-lg w-full p-6 rounded-lg
+        border border-neutral-300 dark:border-neutral-700
+        bg-white dark:bg-neutral-900
+      "
     >
+      <h1 className="text-xl font-semibold">Report an Issue</h1>
+
+      {/* Title */}
       <label htmlFor="title" className="text-sm font-medium">
         Title
       </label>
@@ -38,6 +106,7 @@ function AddIssues() {
                    rounded-md bg-white dark:bg-neutral-800"
       />
 
+      {/* Category */}
       <label htmlFor="category" className="text-sm font-medium">
         Category
       </label>
@@ -51,10 +120,11 @@ function AddIssues() {
       >
         <option value="">Select a category</option>
         <option value="infrastructure">Pot Holes</option>
-        <option value="environment">Grafitti</option>
+        <option value="environment">Graffiti</option>
         <option value="public-safety">Water Damage</option>
       </select>
 
+      {/* Description */}
       <label htmlFor="description" className="text-sm font-medium">
         Description
       </label>
@@ -66,7 +136,20 @@ function AddIssues() {
         className="p-2 border border-neutral-300 dark:border-neutral-700 
                    rounded-md bg-white dark:bg-neutral-800 min-h-[80px]"
       />
+            {/* Address */}
+      <label htmlFor="address" className="text-sm font-medium">
+        Address
+      </label>
+      <textarea
+        id="address"
+        name="address"
+        value={form.address}
+        onChange={(e) => setForm({ ...form, address: e.target.value })}
+        className="p-2 border border-neutral-300 dark:border-neutral-700 
+                   rounded-md bg-white dark:bg-neutral-800 min-h-[80px]"
+      />
 
+      {/* Date */}
       <label htmlFor="date" className="text-sm font-medium">
         Date
       </label>
@@ -82,8 +165,10 @@ function AddIssues() {
 
       <button
         type="submit"
-        className="p-2 bg-neutral-800 text-white rounded-md 
-                   hover:bg-neutral-700 transition"
+        className="
+          p-2 bg-neutral-800 text-white rounded-md 
+          hover:bg-neutral-700 transition
+        "
       >
         Submit
       </button>
