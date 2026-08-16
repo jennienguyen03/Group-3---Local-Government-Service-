@@ -2,6 +2,12 @@
 
 Starter project for the Smart Civic app (COMP 3018, Group 3).
 
+## Student Details 
+Jennie Nguyen 22036161@student.westernsydney.edu.au 
+Adriano Alfonso 22153162@student.westernsydney.edu.au 
+Kenzo Kemlo 20061920@student.westernsydney.edu.au
+Trung Nguyen 20481562@student.westernsydney.edu.au
+
 ## Stack
 
 - Next.js (App Router, TypeScript)
@@ -76,11 +82,12 @@ src/
 | `issues_history` | Log of status changes over time for each issue. |
 | `attachments` | Photos/files linked to an issue. |
 
-## Next steps (suggested build order)
 
-1. Add a "Report an issue" form (resident-facing) — insert into `issues` table.
-2. Add authentication (e.g. NextAuth.js) so `role` actually restricts access.
-3. Add a staff dashboard — list/filter/assign issues.
-4. Add the interactive map (Leaflet + OpenStreetMap) to visualise issue locations.
-5. Add duplicate detection logic (check nearby issues of same type before creating a new one).
-6. Add email notifications on status change (SendGrid/Twilio).
+## INSTALL PACKAGES COMMANDS BY STEPS 
+1. npm install
+2. npx prisma generate
+3. npx prisma db push
+4. npm install leaflet
+
+
+
