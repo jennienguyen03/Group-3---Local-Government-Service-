@@ -23,14 +23,6 @@ export default function AdminNavbar({ name }: AdminNavbarProps) {
             Welcome, <span className="font-medium text-white">{name}</span>
           </span>
         )}
-        <form action="/api/auth/logout" method="post">
-          <button
-            type="submit"
-            className="rounded border border-white/20 px-4 py-1.5 text-sm text-white/90 transition-colors hover:bg-white/10"
-          >
-            Sign out
-          </button>
-        </form>
       </div>
       <SignOutButton/>
     </header>
