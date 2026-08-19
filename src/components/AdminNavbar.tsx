@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-export default function AdminNavbar() {
+type AdminNavbarProps = {
+  name?: string | null;
+};
+
+export default function AdminNavbar({ name }: AdminNavbarProps) {
   return (
     <header className="flex h-16 items-center justify-between border-b border-border bg-brand-navy px-6">
       <Link href="/admin" className="flex items-center gap-2">
@@ -12,14 +16,21 @@ export default function AdminNavbar() {
         </span>
       </Link>
 
-      <form action="/api/auth/logout" method="post">
-        <button
-          type="submit"
-          className="rounded border border-white/20 px-4 py-1.5 text-sm text-white/90 transition-colors hover:bg-white/10"
-        >
-          Sign out
-        </button>
-      </form>
+      <div className="flex items-center gap-4">
+        {name && (
+          <span className="text-sm text-white/80">
+            Welcome, <span className="font-medium text-white">{name}</span>
+          </span>
+        )}
+        <form action="/api/auth/logout" method="post">
+          <button
+            type="submit"
+            className="rounded border border-white/20 px-4 py-1.5 text-sm text-white/90 transition-colors hover:bg-white/10"
+          >
+            Sign out
+          </button>
+        </form>
+      </div>
     </header>
   );
 }
