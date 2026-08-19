@@ -1,49 +1,6 @@
 import Link from "next/link";
 import { LandingNavbar } from "~/components/LandingNavbar";
-import {
-  IconPothole,
-  IconGraffiti,
-  IconDumping,
-  IconPlayground,
-  IconStreetlight,
-  IconVegetation,
-  IconWaterLeak,
-  IconFootpath,
-} from "~/components/IssueTypeIcon";
 
-const ISSUE_TYPES = [
-  { type: "POTHOLE", label: "Pothole", Icon: IconPothole, color: "var(--status-open)", bg: "var(--status-open-bg)" },
-  { type: "GRAFFITI", label: "Graffiti", Icon: IconGraffiti, color: "var(--brand-accent)", bg: "#e4f0f4" },
-  { type: "ILLEGAL_DUMPING", label: "Illegal dumping", Icon: IconDumping, color: "var(--status-open)", bg: "var(--status-open-bg)" },
-  { type: "DAMAGED_PLAYGROUND_EQUIPMENT", label: "Playground damage", Icon: IconPlayground, color: "var(--status-progress)", bg: "var(--status-progress-bg)" },
-  { type: "BROKEN_STREETLIGHT", label: "Broken streetlight", Icon: IconStreetlight, color: "var(--status-progress)", bg: "var(--status-progress-bg)" },
-  { type: "OVERGROWN_VEGETATION", label: "Overgrown vegetation", Icon: IconVegetation, color: "var(--status-resolved)", bg: "var(--status-resolved-bg)" },
-  { type: "WATER_LEAK", label: "Water leak", Icon: IconWaterLeak, color: "var(--brand-accent)", bg: "#e4f0f4" },
-  { type: "FOOTPATH_DAMAGE", label: "Footpath damage", Icon: IconFootpath, color: "var(--status-resolved)", bg: "var(--status-resolved-bg)" },
-];
-
-const STEPS = [
-  {
-    label: "Reported",
-    color: "var(--status-open)",
-    bg: "var(--status-open-bg)",
-    copy: "Tell us what's wrong and where. Drop a pin or use your location.",
-  },
-  {
-    label: "In progress",
-    color: "var(--status-progress)",
-    bg: "var(--status-progress-bg)",
-    copy: "Council staff pick it up, assess it, and start the fix.",
-  },
-  {
-    label: "Resolved",
-    color: "var(--status-resolved)",
-    bg: "var(--status-resolved-bg)",
-    copy: "You're notified once it's done. Track it the whole way.",
-  },
-];
-
-// Example tickets shown for illustration only — not real data.
 const EXAMPLE_TICKETS = [
   {
     id: "A1F92C",
@@ -74,10 +31,9 @@ export default function Home() {
     <>
       <LandingNavbar />
 
-      <main className="flex-1 bg-background">
-        {/* Hero — with faded dark map background */}
+      <main className="flex-1 bg-gradient-to-br from-sky-100 via-purple-50 to-pink-100">
+        {/* Hero */}
         <section className="relative overflow-hidden">
-
           {/* Decorative map background, dark + low opacity */}
           <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
             <iframe
@@ -90,7 +46,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/60" />
           </div>
 
-          <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 md:grid-cols-[1.1fr_0.9fr] md:pt-24">
+          <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 md:grid-cols-[1.1fr_0.9fr] md:pt-24 min-h-screen items-center">
             <div>
               <span className="block text-lg font-bold uppercase tracking-wide text-white sm:text-xl">
                 Local Government Service Requests
@@ -167,84 +123,6 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* How it works */}
-        <section className="border-t border-border bg-surface">
-          <div className="mx-auto max-w-6xl px-6 py-16">
-            <h2 className="text-xl font-semibold text-text-primary">
-              How it works
-            </h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
-              {STEPS.map((step, i) => (
-                <div
-                  key={step.label}
-                  className="rounded-lg border p-5"
-                  style={{ borderColor: step.color, background: step.bg }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="flex h-7 w-7 items-center justify-center rounded-full font-mono text-xs font-semibold text-white"
-                      style={{ background: step.color }}
-                    >
-                      {i + 1}
-                    </span>
-                    <span className="text-sm font-medium text-text-primary">
-                      {step.label}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-text-secondary">
-                    {step.copy}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Issue types */}
-        <section className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="text-xl font-semibold text-text-primary">
-            What you can report
-          </h2>
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {ISSUE_TYPES.map(({ type, label, Icon, color, bg }) => (
-              <div
-                key={type}
-                className="flex flex-col items-start gap-3 rounded-lg border border-border bg-surface p-4"
-              >
-                <span
-                  className="flex h-9 w-9 items-center justify-center rounded-full"
-                  style={{ background: bg }}
-                >
-                  <Icon className="h-5 w-5 shrink-0" style={{ color }} />
-                </span>
-                <span className="text-sm font-medium text-text-primary">
-                  {label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Closing CTA */}
-        <section className="border-t border-border bg-brand-navy">
-          <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-14 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-xl font-semibold text-white">
-                Your street, your call.
-              </h2>
-              <p className="mt-1 text-sm text-white/70">
-                It takes under two minutes to file a report.
-              </p>
-            </div>
-            <Link
-              href="/report"
-              className="rounded-md bg-white px-5 py-3 text-sm font-medium text-brand-navy transition-colors hover:bg-white/90"
-            >
-              Report an issue
-            </Link>
           </div>
         </section>
       </main>
