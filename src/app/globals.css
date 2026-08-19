@@ -19,7 +19,7 @@
   --status-progress: #1c6e8c;
   --status-progress-bg: #e4f0f4;
   --status-resolved: #2c7a52;
-  --status-resolved-bg: #e5f3ea;
+  --brand-navy-bg: #e7ebf1;
 }
 
 @theme inline {
@@ -38,6 +38,7 @@
   --color-status-progress-bg: var(--status-progress-bg);
   --color-status-resolved: var(--status-resolved);
   --color-status-resolved-bg: var(--status-resolved-bg);
+  --color-brand-navy-bg: var(--brand-navy-bg);
   --font-sans: var(--font-public-sans);
   --font-mono: var(--font-plex-mono);
 }
