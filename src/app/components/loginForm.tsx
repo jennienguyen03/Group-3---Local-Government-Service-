@@ -34,9 +34,9 @@ export function LoginForm() {
       );
 
 
-      if (result?.success) {
+       if (result?.success) {
 
-        router.push("/dashboard");
+        router.push(result.role === "ADMIN" ? "/admin" : "/dashboard");
 
       } else {
 

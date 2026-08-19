@@ -1,5 +1,3 @@
-"use client";
-
 import dynamic from "next/dynamic";
 
 const IssueMap = dynamic(() => import("./IssueMap"), {
@@ -19,6 +17,12 @@ type MapIssue = {
   longitude: number;
 };
 
-export default function MapSection({ issues }: { issues: MapIssue[] }) {
-  return <IssueMap issues={issues} />;
+export default function MapSection({
+  issues,
+  focusedId,
+}: {
+  issues: MapIssue[];
+  focusedId?: string | null;
+}) {
+  return <IssueMap issues={issues} focusedId={focusedId} />;
 }

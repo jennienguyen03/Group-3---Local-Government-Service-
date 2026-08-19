@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { db } from "~/server/db";
+import { auth } from "~/server/auth/config";
 import UserNavbar from "~/components/UserNavbar";
 import MyReportsList from "~/components/MyReportsList";
 import SupportPanel from "~/components/SupportPanel";
@@ -8,7 +9,9 @@ import MapSection from "~/components/MapSection";
 export const dynamic = "force-dynamic";
 
 export default async function ResidentDashboard() {
-  // TODO: once auth is added, filter by the signed-in resident's id
+  const session = await auth();
+
+  // TODO: filter by the signed-in resident's id once reports are linked to accounts
   // (e.g. where: { reportedById: session.user.id })
   const reports = await db.issue.findMany({
     orderBy: { createdAt: "desc" },
@@ -21,8 +24,8 @@ export default async function ResidentDashboard() {
   });
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <UserNavbar />
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-sky-100 via-purple-100 to-pink-100">
+      <UserNavbar name={session?.user?.name} />
 
       <main className="flex flex-1 gap-6 p-6">
         {/* Left panel */}

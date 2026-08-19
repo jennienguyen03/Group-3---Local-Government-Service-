@@ -1,6 +1,7 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useEffect, useRef } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -24,12 +25,42 @@ type MapIssue = {
 type IssueMapProps = {
   issues: MapIssue[];
   center?: [number, number];
+  focusedId?: string | null;
 };
 
 // Default center: Sydney CBD — adjust to your council's actual area.
 const DEFAULT_CENTER: [number, number] = [-33.8688, 151.2093];
 
-export default function IssueMap({ issues, center = DEFAULT_CENTER }: IssueMapProps) {
+function FlyToFocused({
+  issue,
+}: {
+  issue: MapIssue | undefined;
+}) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (issue) {
+      map.flyTo([issue.latitude, issue.longitude], 16, { duration: 0.75 });
+    }
+  }, [issue, map]);
+
+  return null;
+}
+
+export default function IssueMap({ issues, center = DEFAULT_CENTER, focusedId }: IssueMapProps) {
+  const markerRefs = useRef<Record<string, L.Marker | null>>({});
+  const focusedIssue = issues.find((i) => i.id === focusedId);
+
+  useEffect(() => {
+    if (focusedId) {
+      // Slight delay so flyTo finishes before the popup tries to open
+      const timer = setTimeout(() => {
+        markerRefs.current[focusedId]?.openPopup();
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [focusedId]);
+
   return (
     <MapContainer
       center={center}
@@ -41,8 +72,15 @@ export default function IssueMap({ issues, center = DEFAULT_CENTER }: IssueMapPr
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {focusedId && <FlyToFocused issue={focusedIssue} />}
       {issues.map((issue) => (
-        <Marker key={issue.id} position={[issue.latitude, issue.longitude]}>
+        <Marker
+          key={issue.id}
+          position={[issue.latitude, issue.longitude]}
+          ref={(ref) => {
+            markerRefs.current[issue.id] = ref;
+          }}
+        >
           <Popup>
             <p className="font-medium">{issue.title}</p>
             <p className="text-xs text-text-secondary">
