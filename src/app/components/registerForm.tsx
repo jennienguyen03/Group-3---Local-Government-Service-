@@ -57,7 +57,7 @@ export function RegisterForm() {
     >
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="name" className="text-sm font-medium">
+        <label htmlFor="name" className="text-sm font-medium text-white">
           Name
         </label>
 
@@ -78,7 +78,7 @@ export function RegisterForm() {
 
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="email" className="text-sm font-medium">
+        <label htmlFor="email" className="text-sm font-medium text-white">
           Email
         </label>
 
@@ -99,7 +99,7 @@ export function RegisterForm() {
 
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="password" className="text-sm font-medium">
+        <label htmlFor="password" className="text-sm font-medium text-white">
           Password
         </label>
 
@@ -120,7 +120,7 @@ export function RegisterForm() {
 
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="confirmPassword" className="text-sm font-medium">
+        <label htmlFor="confirmPassword" className="text-sm font-medium text-white">
           Confirm Password
         </label>
 

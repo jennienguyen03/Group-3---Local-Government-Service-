@@ -17,6 +17,7 @@ export default function Report() {
           className="
             mb-4 rounded-md border border-neutral-300 dark:border-neutral-700
             px-4 py-2 text-sm bg-white dark:bg-neutral-900
+            text-neutral-900 dark:text-neutral-100
             hover:bg-neutral-100 dark:hover:bg-neutral-800 transition
           "
         >
@@ -39,6 +40,7 @@ export default function Report() {
         className="
           fixed bottom-6 right-6 rounded-full bg-neutral-800 text-white
           w-10 h-10 hover:bg-neutral-700 transition shadow-md
+          text-neutral-900 dark:text-neutral-100
         "
       >
         ↑
@@ -56,30 +58,30 @@ function AddIssues() {
     date: ""
   });
 
-async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  event.preventDefault();
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-  const res = await fetch("/api/datbase", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(form),
-  });
-
-  const data = await res.json();
-
-  if (data.success) {
-    alert("Issue submitted successfully");
-    setForm({
-      title: "",
-      category: "",
-      description: "",
-      address: "",
-      date: "",
+    const res = await fetch("/api/datbase", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
     });
-  } else {
-    alert("Failed to submit issue");
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Issue submitted successfully");
+      setForm({
+        title: "",
+        category: "",
+        description: "",
+        address: "",
+        date: "",
+      });
+    } else {
+      alert("Failed to submit issue");
+    }
   }
-}
 
 
   return (
@@ -89,12 +91,13 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         flex flex-col gap-4 max-w-lg w-full p-6 rounded-lg
         border border-neutral-300 dark:border-neutral-700
         bg-white dark:bg-neutral-900
+        text-neutral-900 dark:text-neutral-100
       "
     >
-      <h1 className="text-xl font-semibold">Report an Issue</h1>
+      <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Report an Issue</h1>
 
       {/* Title */}
-      <label htmlFor="title" className="text-sm font-medium">
+      <label htmlFor="title" className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
         Title
       </label>
       <input
@@ -108,7 +111,7 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       />
 
       {/* Category */}
-      <label htmlFor="category" className="text-sm font-medium">
+      <label htmlFor="category" className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
         Category
       </label>
       <select
@@ -117,7 +120,8 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         value={form.category}
         onChange={(e) => setForm({ ...form, category: e.target.value })}
         className="p-2 border border-neutral-300 dark:border-neutral-700 
-                   rounded-md bg-white dark:bg-neutral-800"
+                   rounded-md bg-white dark:bg-neutral-800
+                   text-neutral-900 dark:text-neutral-100"
       >
         <option value="">Select a category</option>
         <option value="infrastructure">Pot Holes</option>
@@ -126,7 +130,7 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       </select>
 
       {/* Description */}
-      <label htmlFor="description" className="text-sm font-medium">
+      <label htmlFor="description" className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
         Description
       </label>
       <textarea
@@ -137,8 +141,8 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         className="p-2 border border-neutral-300 dark:border-neutral-700 
                    rounded-md bg-white dark:bg-neutral-800 min-h-[80px]"
       />
-            {/* Address */}
-      <label htmlFor="address" className="text-sm font-medium">
+      {/* Address */}
+      <label htmlFor="address" className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
         Address
       </label>
       <textarea
@@ -151,7 +155,7 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       />
 
       {/* Date */}
-      <label htmlFor="date" className="text-sm font-medium">
+      <label htmlFor="date" className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
         Date
       </label>
       <input
@@ -161,7 +165,8 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         value={form.date}
         onChange={(e) => setForm({ ...form, date: e.target.value })}
         className="p-2 border border-neutral-300 dark:border-neutral-700 
-                   rounded-md bg-white dark:bg-neutral-800"
+                   rounded-md bg-white dark:bg-neutral-800
+                   text-neutral-900 dark:text-neutral-100"
       />
 
       <button

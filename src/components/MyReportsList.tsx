@@ -3,6 +3,7 @@ type ReportItem = {
   title: string;
   type: string;
   status: "REPORTED" | "IN_PROGRESS" | "RESOLVED" | "CLOSED";
+  //address: string;
   createdAt: Date;
 };
 
@@ -13,7 +14,11 @@ const statusStyles: Record<ReportItem["status"], { bg: string; text: string; lab
   CLOSED: { bg: "bg-border", text: "text-text-secondary", label: "Closed" },
 };
 
-export default function MyReportsList({ reports }: { reports: ReportItem[] }) {
+export default function MyReportsList({
+  reports,
+}: {
+  reports: ReportItem[];
+}) {
   if (reports.length === 0) {
     return (
       <p className="py-10 text-center text-sm text-text-muted">
@@ -22,27 +27,77 @@ export default function MyReportsList({ reports }: { reports: ReportItem[] }) {
     );
   }
 
-  return (
-    <ul className="flex flex-col gap-2">
-      {reports.map((report) => {
-        const style = statusStyles[report.status];
-        return (
-          <li
-            key={report.id}
-            className="flex items-center justify-between rounded-md border border-border bg-surface px-4 py-3"
-          >
-            <div>
-              <p className="text-sm font-medium text-text-primary">{report.title}</p>
-              <p className="mt-0.5 text-xs text-text-secondary">
-                {report.type.replaceAll("_", " ").toLowerCase()}
-              </p>
-            </div>
-            <span className={`rounded px-2.5 py-1 text-xs font-medium ${style.bg} ${style.text}`}>
-              {style.label}
-            </span>
-          </li>
-        );
-      })}
-    </ul>
+ return (
+    <div className="overflow-x-auto rounded-lg border border-border">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-border bg-surface">
+            <th className="px-4 py-3 text-left font-semibold text-text-primary">
+              Title
+            </th>
+
+            <th className="px-4 py-3 text-left font-semibold text-text-primary">
+              Category
+            </th>
+
+            <th className="px-4 py-3 text-left font-semibold text-text-primary">
+              Date
+            </th>
+
+            <th className="px-4 py-3 text-left font-semibold text-text-primary">
+              Address
+            </th>
+
+            <th className="px-4 py-3 text-left font-semibold text-text-primary">
+              Status
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {reports.map((report) => {
+            const style = statusStyles[report.status];
+
+            return (
+              <tr
+                key={report.id}
+                className="border-b border-border last:border-0 hover:bg-background"
+              >
+                {/* Title */}
+                <td className="px-4 py-4 font-medium text-text-primary">
+                  {report.title}
+                </td>
+
+                {/* Category */}
+                <td className="px-4 py-4 text-text-secondary">
+                  {report.type
+                    .replaceAll("_", " ")
+                    .toLowerCase()}
+                </td>
+
+                {/* Date */}
+                <td className="px-4 py-4 text-text-secondary">
+                  {report.createdAt.toLocaleDateString()}
+                </td>
+
+                {/* Address */}
+                <td className="px-4 py-4 text-text-secondary">
+                  {report.title}
+                </td>
+
+                {/* Status */}
+                <td className="px-4 py-4">
+                  <span
+                    className={`inline-block rounded px-2.5 py-1 text-xs font-medium ${style.bg} ${style.text}`}
+                  >
+                    {style.label}
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }

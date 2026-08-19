@@ -82,7 +82,7 @@ export function LoginForm() {
 
         <label
           htmlFor="email"
-          className="text-sm font-medium"
+          className="text-sm font-medium text-white"
         >
           Email
         </label>
@@ -117,7 +117,7 @@ export function LoginForm() {
 
         <label
           htmlFor="password"
-          className="text-sm font-medium"
+          className="text-sm font-medium text-white"
         >
           Password
         </label>
