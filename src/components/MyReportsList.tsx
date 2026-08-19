@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type ReportItem = {
   id: string;
   title: string;
@@ -65,7 +67,12 @@ export default function MyReportsList({
               >
                 {/* Title */}
                 <td className="px-4 py-4 font-medium text-text-primary">
-                  {report.title}
+                  <Link
+                    href={`/issues/${report.id}`}
+                    className="hover:text-brand-accent hover:underline"
+                  >
+                    {report.title}
+                  </Link>
                 </td>
 
                 {/* Category */}
