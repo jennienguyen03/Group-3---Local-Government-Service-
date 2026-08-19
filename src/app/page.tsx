@@ -125,6 +125,36 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* About us */}
+        <section className="relative overflow-hidden bg-brand-navy">
+          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-accent/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+
+          <div className="relative mx-auto max-w-6xl px-6 py-20">
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-white/80">
+                Our story
+              </span>
+              <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                Who's behind Smart Civic?
+              </h2>
+              <p className="mt-4 text-[15px] leading-relaxed text-white/70">
+                We're a small team building tools that make it easier for
+                residents and councils to work together on the issues that
+                matter to their community. Learn more about our mission, our
+                team, and what's next.
+              </p>
+              <Link
+                href="/aboutUs"
+                className="mt-8 inline-flex items-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-medium text-brand-navy transition-colors hover:bg-white/90"
+              >
+                About Us 
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
     </>
   );
