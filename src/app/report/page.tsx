@@ -47,8 +47,8 @@ export default function Report({
     setNewCategory("");
   }
 
-  function removeCategory(cat: string) {
-    setCategories(categories.filter((c) => c !== cat));  // remove category
+  function removeCategory(issue: string) {
+    setCategories(categories.filter((c) => c !== issue));  // remove category
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) { // convert the form data to JSON and send it to the server
@@ -131,16 +131,16 @@ export default function Report({
                 </div>
 
                 <div className="flex flex-col gap-2 mt-3">    // added a delete category function for the list
-                  {categories.map((cat) => (
+                  {categories.map((issue) => (
                     <div
-                      key={cat}
+                      key={issue}
                       className="flex items-center justify-between border p-2 rounded-md"
                     >
-                      <span className="text-sm">{cat}</span>
+                      <span className="text-sm">{issue}</span>
 
                       <button
                         type="button"
-                        onClick={() => removeCategory(cat)}
+                        onClick={() => removeCategory(issue)}
                         className="px-2 py-1 bg-red-600 text-white rounded-md text-xs"
                       >
                         Delete
@@ -166,9 +166,9 @@ export default function Report({
               className="p-2 border rounded-md"
             >
               <option value="">Select Category</option>  // added a load function that adds the categories into the dropdown list 
-              {categories.map((cat) => (                 // dynamically loads the categories into the dropdown list
-                <option key={cat} value={cat}>
-                  {cat}
+              {categories.map((issue) => (                 // dynamically loads the categories into the dropdown list
+                <option key={issue} value={issue}>
+                  {issue}
                 </option>
               ))}
             </select>
