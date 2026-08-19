@@ -352,7 +352,6 @@ function AddIssues() {
           hover:bg-neutral-700
           transition
           disabled:opacity-50
-          text-neutral-900 dark:text-neutral-100
         "
       >
         {submitting ? "Submitting…" : "Submit"}
