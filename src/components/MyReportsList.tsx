@@ -3,7 +3,7 @@ type ReportItem = {
   title: string;
   type: string;
   status: "REPORTED" | "IN_PROGRESS" | "RESOLVED" | "CLOSED";
-  //address: string;
+  address: string;
   createdAt: Date;
 };
 
@@ -82,7 +82,7 @@ export default function MyReportsList({
 
                 {/* Address */}
                 <td className="px-4 py-4 text-text-secondary">
-                  {report.title}
+                  {report.address}
                 </td>
 
                 {/* Status */}
