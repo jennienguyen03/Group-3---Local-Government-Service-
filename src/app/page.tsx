@@ -47,16 +47,14 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/60" />
           </div>
 
-          <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 md:grid-cols-[1.1fr_0.9fr] md:pt-24">
+          <div className="relative z-10 mx-auto grid min-h-screen max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <span className="block text-lg font-bold uppercase tracking-wide text-white sm:text-xl">
+              <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-5xl">
                 Local Government Service Requests
-              </span>
-              <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight text-white md:text-5xl">
-                See something broken?
-                <br />
-                Report it in minutes.
               </h1>
+              <p className="mt-4 text-lg font-semibold text-white/90 md:text-xl">
+                See something broken? Report it in minutes.
+              </p>
               <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/80">
                 Potholes, graffiti, broken streetlights, illegal dumping — flag
                 it on a map and track it through to resolved. Council sees it
@@ -137,29 +135,16 @@ export default function Home() {
         </section>
 
         {/* Closing CTA */}
-        <section className="bg-brand-navy">
-          <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-14 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-xl font-semibold text-white">
-                Your street, your call.
-              </h2>
-              <p className="mt-1 text-sm text-white/70">
-                It takes under two minutes to file a report.
-              </p>
-            </div>
-            <Link
-              href="/report"
-              className="rounded-md bg-white px-5 py-3 text-sm font-medium text-brand-navy transition-colors hover:bg-white/90"
-            >
-              Report an issue
-            </Link>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="bg-background px-6 py-6 text-center text-xs text-text-muted">
-          © 2026 Smart Civic — COMP 3018 Group 3
-        </footer>
+      <section className="bg-brand-navy">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <h2 className="text-xl font-semibold text-white">
+          Your street, your call.
+          </h2>
+          <p className="mt-1 text-sm text-white/70">
+            Join your neighbours in keeping the community running smoothly.
+          </p>
+        </div>
+      </section>
       </main>
     </>
   );
