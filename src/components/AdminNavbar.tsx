@@ -23,8 +23,8 @@ export default function AdminNavbar({ name }: AdminNavbarProps) {
             Welcome, <span className="font-medium text-white">{name}</span>
           </span>
         )}
+        <SignOutButton />
       </div>
-      <SignOutButton/>
     </header>
   );
 }
