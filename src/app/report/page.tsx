@@ -41,14 +41,10 @@ export default function Report() {
         <button
           onClick={() => router.back()}
           className="
-            mb-4
-            rounded-md
-            border border-neutral-300 dark:border-neutral-700
-            px-4 py-2
-            text-sm
-            bg-white dark:bg-neutral-900
-            hover:bg-neutral-100 dark:hover:bg-neutral-800
-            transition
+            mb-4 rounded-md border border-neutral-300 dark:border-neutral-700
+            px-4 py-2 text-sm bg-white dark:bg-neutral-900
+            text-neutral-900 dark:text-neutral-100
+            hover:bg-neutral-100 dark:hover:bg-neutral-800 transition
           "
         >
           ← Back
@@ -67,14 +63,9 @@ export default function Report() {
           })
         }
         className="
-          fixed bottom-6 right-6
-          rounded-full
-          bg-neutral-800
-          text-white
-          w-10 h-10
-          hover:bg-neutral-700
-          transition
-          shadow-md
+          fixed bottom-6 right-6 rounded-full bg-neutral-800 text-white
+          w-10 h-10 hover:bg-neutral-700 transition shadow-md
+          text-neutral-900 dark:text-neutral-100
         "
       >
         ↑
@@ -200,6 +191,7 @@ function AddIssues() {
         rounded-lg
         border border-neutral-300 dark:border-neutral-700
         bg-white dark:bg-neutral-900
+        text-neutral-900 dark:text-neutral-100
       "
     >
       <h1 className="text-xl font-semibold">Report an Issue</h1>
@@ -217,6 +209,7 @@ function AddIssues() {
         className="
           p-2 border border-neutral-300 dark:border-neutral-700
           rounded-md bg-white dark:bg-neutral-800
+          text-neutral-900 dark:text-neutral-100
         "
       />
 
@@ -232,6 +225,7 @@ function AddIssues() {
         className="
           p-2 border border-neutral-300 dark:border-neutral-700
           rounded-md bg-white dark:bg-neutral-800
+          text-neutral-900 dark:text-neutral-100
         "
       >
         <option value="">Select a category</option>
@@ -253,6 +247,7 @@ function AddIssues() {
         className="
           p-2 border border-neutral-300 dark:border-neutral-700
           rounded-md bg-white dark:bg-neutral-800
+          text-neutral-900 dark:text-neutral-100
           min-h-[80px]
         "
       />
@@ -270,6 +265,7 @@ function AddIssues() {
         className="
           p-2 border border-neutral-300 dark:border-neutral-700
           rounded-md bg-white dark:bg-neutral-800
+          text-neutral-900 dark:text-neutral-100
         "
       />
 
@@ -290,6 +286,7 @@ function AddIssues() {
             underline
             hover:text-neutral-900 dark:hover:text-white
             disabled:opacity-50
+            text-neutral-900 dark:text-neutral-100
           "
         >
           {locating ? "Locating…" : "📍 Use my current location instead"}
@@ -317,6 +314,7 @@ function AddIssues() {
           file:bg-neutral-800 file:px-3 file:py-2
           file:text-sm file:text-white
           hover:file:bg-neutral-700
+          text-neutral-900 dark:text-neutral-100
         "
       />
 
