@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LandingNavbar } from "~/components/LandingNavbar";
 
+// Example tickets shown for illustration only — not real data.
 const EXAMPLE_TICKETS = [
   {
     id: "A1F92C",
@@ -31,36 +32,43 @@ export default function Home() {
     <>
       <LandingNavbar />
 
-      <main className="flex-1 bg-gradient-to-br from-sky-100 via-purple-50 to-pink-100">
-        {/* Hero */}
+      <main className="flex-1 bg-background">
+        {/* Hero — with faded dark map background */}
         <section className="relative overflow-hidden">
           {/* Decorative map background, dark + low opacity */}
-          <div className="pointer-none absolute inset-0 z-0 overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
             <iframe
               title="background map"
               src="https://www.openstreetmap.org/export/embed.html?bbox=150.9%2C-33.95%2C151.3%2C-33.75&layer=mapnik"
-              className="h-full w-full opacity-70"
+              className="h-[calc(100%+80px)] w-full -translate-y-10 opacity-70"
               scrolling="no"
               tabIndex={-1}
             />
             <div className="absolute inset-0 bg-black/60" />
           </div>
 
-          <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 md:grid-cols-[1.1fr_0.9fr] md:pt-24 min-h-screen items-center">
+          <div className="relative z-10 mx-auto grid min-h-screen max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <span className="block text-lg font-bold uppercase tracking-wide text-white sm:text-xl">
+              <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-5xl">
                 Local Government Service Requests
-              </span>
-              <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight text-white md:text-5xl">
-                See something broken?
-                <br />
-                Report it in minutes.
               </h1>
+              <p className="mt-4 text-lg font-semibold text-white/90 md:text-xl">
+                See something broken? Report it in minutes.
+              </p>
               <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/80">
                 Potholes, graffiti, broken streetlights, illegal dumping — flag
                 it on a map and track it through to resolved. Council sees it
                 the moment you submit.
               </p>
+
+              {/* Link to How it works */}
+              <Link
+                href="/HowItWorks"
+                className="mt-6 inline-flex items-center gap-2 rounded-md border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/20"
+              >
+                See how it works
+                <span aria-hidden="true">→</span>
+              </Link>
 
               {/* Sign-in prompt */}
               <div className="mt-8 max-w-md rounded-lg border border-white/15 bg-white/95 p-5 shadow-lg backdrop-blur">
@@ -126,35 +134,17 @@ export default function Home() {
           </div>
         </section>
 
-        {/* About us */}
-        <section className="relative overflow-hidden bg-brand-navy">
-          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-accent/20 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-
-          <div className="relative mx-auto max-w-6xl px-6 py-20">
-            <div className="mx-auto max-w-2xl text-center">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-white/80">
-                Our story
-              </span>
-              <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                Who's behind Smart Civic?
-              </h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-white/70">
-                We're a small team building tools that make it easier for
-                residents and councils to work together on the issues that
-                matter to their community. Learn more about our mission, our
-                team, and what's next.
-              </p>
-              <Link
-                href="/aboutUs"
-                className="mt-8 inline-flex items-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-medium text-brand-navy transition-colors hover:bg-white/90"
-              >
-                About Us 
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-          </div>
-        </section>
+        {/* Closing CTA */}
+      <section className="bg-brand-navy">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <h2 className="text-xl font-semibold text-white">
+          Your street, your call.
+          </h2>
+          <p className="mt-1 text-sm text-white/70">
+            Join your neighbours in keeping the community running smoothly.
+          </p>
+        </div>
+      </section>
       </main>
     </>
   );
