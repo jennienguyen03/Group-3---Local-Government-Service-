@@ -1,8 +1,7 @@
 import { db } from "~/server/db";
 import { auth } from "~/server/auth/config";
 import AdminNavbar from "~/components/AdminNavbar";
-import IssuesOverview from "~/components/IssuesOverview";
-import MapSection from "~/components/MapSection";
+import AdminIssuesSection from "~/components/AdminIssuesSection";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +21,9 @@ export default async function AdminDashboard() {
         latitude: true,
         longitude: true,
         createdAt: true,
+        attachments: {
+          select: { id: true, fileName: true, url: true },
+        },
       },
     }),
     db.issue.findMany({
@@ -35,17 +37,7 @@ export default async function AdminDashboard() {
       <AdminNavbar name={session?.user?.name} />
 
       <main className="p-6">
-        <IssuesOverview issues={issues} />
-
-        {/* Bottom: map of all reported issues */}
-        <section className="mt-6 h-80 rounded-xl border border-border bg-surface p-5">
-          <h2 className="mb-4 text-base font-medium text-text-primary">
-            Reported issues map
-          </h2>
-          <div className="h-56 overflow-hidden rounded-lg">
-            <MapSection issues={mapIssues} />
-          </div>
-        </section>
+        <AdminIssuesSection issues={issues} mapIssues={mapIssues} />
       </main>
     </div>
   );

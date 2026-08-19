@@ -13,10 +13,12 @@ type Issue = {
   latitude: number;
   longitude: number;
   createdAt: Date;
+  attachments: { id: string; fileName: string; url: string }[];
 };
 
 type IssuesOverviewProps = {
   issues: Issue[];
+  onViewOnMap: (issueId: string) => void;
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -56,7 +58,7 @@ function timeAgo(date: Date) {
   return `${Math.max(minutes, 1)}m ago`;
 }
 
-export default function IssuesOverview({ issues }: IssuesOverviewProps) {
+export default function IssuesOverview({ issues, onViewOnMap }: IssuesOverviewProps) {
   const [suburbFilter, setSuburbFilter] = useState<string>("all");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -220,6 +222,31 @@ export default function IssuesOverview({ issues }: IssuesOverviewProps) {
             <p className="mt-4 text-sm leading-relaxed text-text-secondary">
               {selectedIssue.description || "No description provided."}
             </p>
+
+            {selectedIssue.attachments.length > 0 && (
+              <div className="mt-4">
+                <p className="mb-2 text-xs font-medium text-text-secondary">
+                  Photos ({selectedIssue.attachments.length})
+                </p>
+                <div className="grid grid-cols-3 gap-2">
+                  {selectedIssue.attachments.map((a) => (
+                    <img
+                      key={a.id}
+                      src={a.url}
+                      alt={a.fileName}
+                      className="aspect-square w-full rounded-md border border-border object-cover"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={() => onViewOnMap(selectedIssue.id)}
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-text-primary transition-colors hover:border-brand-navy"
+            >
+              📍 View on map
+            </button>
 
             <div className="mt-4 space-y-1.5 border-t border-border pt-4 text-xs text-text-muted">
               <p>
