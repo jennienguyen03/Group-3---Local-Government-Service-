@@ -88,7 +88,7 @@ export default function HowItWorksPage() {
         {/* Intro */}
         <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
           <h1 className="max-w-3xl text-5xl font-bold leading-[1.05] tracking-tight text-brand-accent md:text-6xl">
-            How it works
+            How It Works
           </h1>
           <p className="mt-5 text-lg font-semibold text-text-primary md:text-xl">
             Report anything broken in minutes

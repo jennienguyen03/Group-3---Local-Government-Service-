@@ -22,27 +22,6 @@ const ISSUE_TYPES = [
   { type: "FOOTPATH_DAMAGE", label: "Footpath damage", Icon: IconFootpath },
 ];
 
-const STEPS = [
-  {
-    label: "Reported",
-    color: "var(--status-open)",
-    bg: "var(--status-open-bg)",
-    copy: "Tell us what's wrong and where. Drop a pin or use your location.",
-  },
-  {
-    label: "In progress",
-    color: "var(--status-progress)",
-    bg: "var(--status-progress-bg)",
-    copy: "Council staff pick it up, assess it, and start the fix.",
-  },
-  {
-    label: "Resolved",
-    color: "var(--status-resolved)",
-    bg: "var(--status-resolved-bg)",
-    copy: "You're notified once it's done. Track it the whole way.",
-  },
-];
-
 // Example tickets shown for illustration only — not real data.
 const EXAMPLE_TICKETS = [
   {
@@ -78,19 +57,28 @@ export default function Home() {
         {/* Hero */}
         <section className="mx-auto grid max-w-6xl gap-12 px-6 pt-16 pb-20 md:grid-cols-[1.1fr_0.9fr] md:pt-24">
           <div>
-            <span className="font-mono text-xs font-large uppercase tracking-wider text-brand-accent">
-              Local government service requests
-            </span>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight text-text-primary md:text-5xl">
+            <h1 className="max-w-lg text-5xl font-bold leading-[1.05] tracking-tight text-brand-accent md:text-6xl">
               See something broken?
               <br />
               Report it in minutes.
             </h1>
-            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-text-secondary">
+            <p className="mt-5 text-lg font-semibold text-text-primary md:text-xl">
+              Local government service requests
+            </p>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-text-secondary md:text-lg">
               Potholes, graffiti, broken streetlights, illegal dumping — flag
               it on a map and track it through to resolved. Council sees it
               the moment you submit.
             </p>
+
+            {/* Link to How it works */}
+            <Link
+              href="/HowItWorks"
+              className="mt-6 inline-flex items-center gap-2 rounded-md border border-brand-accent px-5 py-2.5 text-sm font-medium text-brand-accent transition-colors hover:bg-brand-accent hover:text-white"
+            >
+              See how it works
+              <span aria-hidden="true">→</span>
+            </Link>
 
             {/* Sign-in prompt */}
             <div className="mt-8 max-w-md rounded-lg border border-border bg-surface p-5">
@@ -149,38 +137,6 @@ export default function Home() {
                   >
                     {ticket.status.replaceAll("_", " ")}
                   </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* How it works */}
-        <section className="border-t border-border bg-surface">
-          <div className="mx-auto max-w-6xl px-6 py-16">
-            <h2 className="text-xl font-semibold text-text-primary">
-              How it works
-            </h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
-              {STEPS.map((step, i) => (
-                <div
-                  key={step.label}
-                  className="rounded-lg border border-border bg-background p-5"
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="flex h-7 w-7 items-center justify-center rounded-full font-mono text-xs font-semibold"
-                      style={{ color: step.color, background: step.bg }}
-                    >
-                      {i + 1}
-                    </span>
-                    <span className="text-sm font-medium text-text-primary">
-                      {step.label}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-relaxed text-text-secondary">
-                    {step.copy}
-                  </p>
                 </div>
               ))}
             </div>
