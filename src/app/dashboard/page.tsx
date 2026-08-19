@@ -30,19 +30,24 @@ export default async function ResidentDashboard() {
       <main className="flex flex-1 gap-6 p-6">
         {/* Left panel */}
         <section className="flex flex-[2] flex-col gap-6">
-          {/* Report an issue */}
-          <Link
-            href="/report"
-            className="flex items-center justify-center rounded-xl bg-brand-accent px-5 py-4 text-sm font-medium text-white transition-colors hover:bg-brand-accent/90"
-          >
-            + Report an issue
-          </Link>
 
           {/* My reports */}
           <div className="flex flex-1 flex-col rounded-xl border border-border bg-surface p-5">
-            <h1 className="mb-4 text-base font-medium text-text-primary">
-              My reports
-            </h1>
+
+            {/* Header row */}
+            <div className="mb-5 flex items-center justify-between">
+              <h1 className="text-3xl font-semibold text-text-primary">
+                My Reports
+              </h1>
+
+              <Link
+                href="/report"
+                className="rounded-md bg-brand-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-accent/90"
+              >
+                + Report an issue
+              </Link>
+            </div>
+
             <MyReportsList reports={reports} />
           </div>
 
@@ -53,6 +58,7 @@ export default async function ResidentDashboard() {
             </h2>
             <SupportPanel />
           </div>
+
         </section>
 
         {/* Right panel: map */}

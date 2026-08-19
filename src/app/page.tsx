@@ -35,7 +35,7 @@ export default function Home() {
         {/* Hero */}
         <section className="relative overflow-hidden">
           {/* Decorative map background, dark + low opacity */}
-          <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          <div className="pointer-none absolute inset-0 z-0 overflow-hidden">
             <iframe
               title="background map"
               src="https://www.openstreetmap.org/export/embed.html?bbox=150.9%2C-33.95%2C151.3%2C-33.75&layer=mapnik"
