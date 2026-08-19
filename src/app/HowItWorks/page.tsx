@@ -12,17 +12,17 @@ import {
 } from "~/components/IssueTypeIcon";
 
 const ISSUE_TYPES = [
-  { type: "POTHOLE", label: "Pothole", Icon: IconPothole },
-  { type: "GRAFFITI", label: "Graffiti", Icon: IconGraffiti },
-  { type: "ILLEGAL_DUMPING", label: "Illegal dumping", Icon: IconDumping },
-  { type: "DAMAGED_PLAYGROUND_EQUIPMENT", label: "Playground damage", Icon: IconPlayground },
-  { type: "BROKEN_STREETLIGHT", label: "Broken streetlight", Icon: IconStreetlight },
-  { type: "OVERGROWN_VEGETATION", label: "Overgrown vegetation", Icon: IconVegetation },
-  { type: "WATER_LEAK", label: "Water leak", Icon: IconWaterLeak },
-  { type: "FOOTPATH_DAMAGE", label: "Footpath damage", Icon: IconFootpath },
+  { type: "POTHOLE", label: "Pothole", Icon: IconPothole, color: "var(--status-open)", bg: "var(--status-open-bg)" },
+  { type: "GRAFFITI", label: "Graffiti", Icon: IconGraffiti, color: "var(--brand-accent)", bg: "#e4f0f4" },
+  { type: "ILLEGAL_DUMPING", label: "Illegal dumping", Icon: IconDumping, color: "var(--status-open)", bg: "var(--status-open-bg)" },
+  { type: "DAMAGED_PLAYGROUND_EQUIPMENT", label: "Playground damage", Icon: IconPlayground, color: "var(--status-progress)", bg: "var(--status-progress-bg)" },
+  { type: "BROKEN_STREETLIGHT", label: "Broken streetlight", Icon: IconStreetlight, color: "var(--status-progress)", bg: "var(--status-progress-bg)" },
+  { type: "OVERGROWN_VEGETATION", label: "Overgrown vegetation", Icon: IconVegetation, color: "var(--status-resolved)", bg: "var(--status-resolved-bg)" },
+  { type: "WATER_LEAK", label: "Water leak", Icon: IconWaterLeak, color: "var(--brand-accent)", bg: "#e4f0f4" },
+  { type: "FOOTPATH_DAMAGE", label: "Footpath damage", Icon: IconFootpath, color: "var(--status-resolved)", bg: "var(--status-resolved-bg)" },
 ];
 
-// The four steps a resident goes through to file a report — each gets its own color
+// The four steps a resident goes through to file a report
 const REPORT_STEPS = [
   {
     number: "01",
@@ -76,7 +76,7 @@ const STATUS_STEPS = [
   },
 ];
 
-// shared card style so every card on this page looks the same
+// shared card style for the "Reporting an issue" section
 const CARD = "rounded-lg border border-border bg-surface p-7 transition-shadow hover:shadow-sm";
 
 export default function HowItWorksPage() {
@@ -88,7 +88,7 @@ export default function HowItWorksPage() {
         {/* Intro */}
         <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
           <h1 className="max-w-3xl text-5xl font-bold leading-[1.05] tracking-tight text-brand-accent md:text-6xl">
-            How It Works
+            How it works
           </h1>
           <p className="mt-5 text-lg font-semibold text-text-primary md:text-xl">
             Report anything broken in minutes
@@ -99,7 +99,6 @@ export default function HowItWorksPage() {
             through to resolved.
           </p>
 
-          {/* Quick stats row for visual interest + a preview of the page */}
           <div className="mt-8 flex flex-wrap gap-3">
             <span className="rounded-full border border-border bg-surface px-4 py-1.5 text-sm font-medium text-text-secondary">
               4 simple steps
@@ -140,18 +139,22 @@ export default function HowItWorksPage() {
           </div>
         </section>
 
-        {/* Status tracking */}
+        {/* Status tracking — tinted cards matching brand colors */}
         <section className="mx-auto max-w-6xl px-6 py-20">
           <h2 className="text-2xl font-semibold tracking-tight text-text-primary">
             Tracking your report
           </h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {STATUS_STEPS.map((step, i) => (
-              <div key={step.label} className={CARD}>
+              <div
+                key={step.label}
+                className="rounded-lg border p-6 transition-shadow hover:shadow-sm"
+                style={{ borderColor: step.color, background: step.bg }}
+              >
                 <div className="flex items-center gap-3">
                   <span
-                    className="flex h-8 w-8 items-center justify-center rounded-full font-mono text-sm font-semibold"
-                    style={{ color: step.color, background: step.bg }}
+                    className="flex h-8 w-8 items-center justify-center rounded-full font-mono text-sm font-semibold text-white"
+                    style={{ background: step.color }}
                   >
                     {i + 1}
                   </span>
@@ -167,19 +170,24 @@ export default function HowItWorksPage() {
           </div>
         </section>
 
-        {/* What you can report */}
+        {/* What you can report — colorful icons matching homepage */}
         <section className="border-t border-border bg-surface">
           <div className="mx-auto max-w-6xl px-6 py-20">
             <h2 className="text-2xl font-semibold tracking-tight text-text-primary">
               What you can report
             </h2>
             <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {ISSUE_TYPES.map(({ type, label, Icon }) => (
+              {ISSUE_TYPES.map(({ type, label, Icon, color, bg }) => (
                 <div
                   key={type}
                   className="flex flex-col items-start gap-3 rounded-lg border border-border bg-surface p-5 transition-shadow hover:shadow-sm"
                 >
-                  <Icon className="h-6 w-6 shrink-0 text-brand-accent" />
+                  <span
+                    className="flex h-9 w-9 items-center justify-center rounded-full"
+                    style={{ background: bg }}
+                  >
+                    <Icon className="h-5 w-5 shrink-0" style={{ color }} />
+                  </span>
                   <span className="text-base font-medium text-text-primary">
                     {label}
                   </span>
